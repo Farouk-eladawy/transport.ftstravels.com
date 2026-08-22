@@ -27,6 +27,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./
 COPY --from=builder /app/src/prisma/seed.ts ./src/prisma/seed.ts
+COPY --from=builder /app/src/prisma/seed-egypt-locations.ts ./src/prisma/seed-egypt-locations.ts
 COPY --from=builder /app/src/permissions/permission-registry.ts ./src/permissions/permission-registry.ts
 COPY --from=builder /app/tsconfig.json ./
 
