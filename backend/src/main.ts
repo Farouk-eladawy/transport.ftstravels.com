@@ -109,9 +109,20 @@ async function bootstrap() {
   );
 
   // Enable CORS for frontend
-  const allowedOrigins = process.env.CORS_ORIGINS
-    ? process.env.CORS_ORIGINS.split(',').map((o) => o.trim())
-    : [];
+  const allowedOrigins = new Set(
+    process.env.CORS_ORIGINS
+      ? process.env.CORS_ORIGINS.split(',').map((o) => o.trim()).filter(Boolean)
+      : [
+          'https://transport.ftstravels.com',
+          'https://api.ftstravels.com',
+        ],
+  );
+  if (process.env.RAILWAY_PUBLIC_DOMAIN) {
+    allowedOrigins.add(`https://${process.env.RAILWAY_PUBLIC_DOMAIN}`);
+  }
+  if (process.env.PUBLIC_BACKEND_URL) {
+    allowedOrigins.add(process.env.PUBLIC_BACKEND_URL.replace(/\/$/, ''));
+  }
   app.enableCors({
     origin: (origin, callback) => {
       // Allow requests with no origin (server-to-server, mobile apps)
@@ -124,7 +135,7 @@ async function bootstrap() {
         return callback(null, true);
       }
       // Allow configured production origins
-      if (allowedOrigins.includes(origin)) return callback(null, true);
+      if (allowedOrigins.has(origin)) return callback(null, true);
       callback(new Error('Not allowed by CORS'));
     },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],

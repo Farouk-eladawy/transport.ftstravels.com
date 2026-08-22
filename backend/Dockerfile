@@ -36,7 +36,9 @@ RUN apk add --no-cache font-dejavu fontconfig && fc-cache -f
 # Create uploads directory and copy font assets
 RUN mkdir -p /app/uploads
 COPY --from=builder /app/fonts ./fonts
+COPY scripts/start-production.sh ./scripts/start-production.sh
+RUN chmod +x ./scripts/start-production.sh
 
 EXPOSE 3001
 
-CMD ["node", "dist/src/main.js"]
+CMD ["./scripts/start-production.sh"]

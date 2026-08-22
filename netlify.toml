@@ -1,5 +1,5 @@
 # Netlify — frontend only (transport.ftstravels.com)
-# Backend runs separately (local machine / VPS / tunnel).
+# Backend on Railway: https://transport-ftstravels.up.railway.app
 
 [build]
   base = "frontend"
@@ -14,5 +14,6 @@
   NPM_FLAGS = "--legacy-peer-deps"
 
 # Set in Netlify UI → Site settings → Environment variables:
-# NEXT_PUBLIC_API_URL = https://YOUR-BACKEND-PUBLIC-URL
-# (no trailing slash — e.g. https://api.transport.ftstravels.com or ngrok URL)
+# NEXT_PUBLIC_API_URL = https://transport-ftstravels.up.railway.app
+# NEXT_PUBLIC_ENABLE_CAR_DISPATCH = true
+# (no trailing slash — do NOT append /api)

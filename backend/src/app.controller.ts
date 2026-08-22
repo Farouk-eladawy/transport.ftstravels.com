@@ -11,4 +11,13 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('health')
+  health() {
+    return {
+      status: 'ok',
+      service: 'fts-transport-api',
+      timestamp: new Date().toISOString(),
+    };
+  }
 }

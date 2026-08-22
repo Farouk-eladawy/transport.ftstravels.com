@@ -1,0 +1,13 @@
+# FTS Transport — Railway (backend only)
+# https://railway.com/project/1608ce57-3bfd-49f0-9bb1-b252439992ec
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "backend/Dockerfile"
+watchPatterns = ["backend/**"]
+
+[deploy]
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
