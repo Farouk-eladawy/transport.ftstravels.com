@@ -6,7 +6,7 @@ npx prisma migrate deploy
 
 if [ "${RUN_DB_SEED:-false}" = "true" ]; then
   echo "[fts-transport] Seeding database (RUN_DB_SEED=true)..."
-  node dist/src/prisma/seed.js
+  npx prisma db seed
 fi
 
 echo "[fts-transport] Starting API on PORT=${PORT:-3001}..."

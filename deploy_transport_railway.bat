@@ -24,8 +24,8 @@ git commit -m "Railway deploy: healthcheck, migrations, CORS, docs" 2>nul
 git push origin main
 if errorlevel 1 git push origin master
 
-railway link 1608ce57-3bfd-49f0-9bb1-b252439992ec
-railway up
+railway link -p 1608ce57-3bfd-49f0-9bb1-b252439992ec
+railway up --path-as-root backend --detach
 
 echo.
 echo Done. Set variables from railway_vars.example.json in Railway UI.

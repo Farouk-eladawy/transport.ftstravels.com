@@ -1,10 +1,9 @@
-# FTS Transport — Railway (backend only)
-# https://railway.com/project/1608ce57-3bfd-49f0-9bb1-b252439992ec
+# FTS Transport backend — Railway service root = backend/
+# In Railway dashboard: Settings → Root Directory = backend
 
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
-watchPatterns = ["**"]
 
 [deploy]
 healthcheckPath = "/api/health"

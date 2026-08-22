@@ -9,7 +9,8 @@ Railway Project: [1608ce57-3bfd-49f0-9bb1-b252439992ec](https://railway.com/proj
 ## 1) Railway — Backend Service
 
 1. **New Service** → Deploy from GitHub → `Farouk-eladawy/transport.ftstravels.com`
-2. أضف **PostgreSQL** plugin في نفس المشروع
+2. **Settings → Root Directory** = `backend` (مهم جداً)
+3. أضف **PostgreSQL** plugin في نفس المشروع
 3. في خدمة الـ Backend → **Variables** — انسخ من `railway_vars.example.json`:
 
 | Variable | القيمة |
@@ -75,8 +76,8 @@ curl -H "X-Partner-Key: YOUR_KEY" https://transport-ftstravels.up.railway.app/ap
 ```bat
 cd c:\Users\Aloosh2020\Downloads\itourtt-main
 railway login
-railway link 1608ce57-3bfd-49f0-9bb1-b252439992ec
-railway up
+railway link -p 1608ce57-3bfd-49f0-9bb1-b252439992ec
+railway up --path-as-root backend --detach
 ```
 
 أو شغّل `deploy_transport_railway.bat`
