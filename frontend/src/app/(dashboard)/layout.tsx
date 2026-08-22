@@ -8,6 +8,7 @@ import { Sidebar } from "@/components/sidebar";
 import { Header } from "@/components/header";
 import { ThemeProvider, useTheme } from "@/components/theme-provider";
 import { LicenseGate } from "@/components/license-gate";
+import { SessionConflictModal } from "@/components/session-conflict-modal";
 
 function DashboardFrame({ children }: { children: React.ReactNode }) {
   const { settings } = useTheme();
