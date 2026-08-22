@@ -1,0 +1,18 @@
+# Netlify — frontend only (transport.ftstravels.com)
+# Backend runs separately (local machine / VPS / tunnel).
+
+[build]
+  base = "frontend"
+  command = "npm ci && npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Set in Netlify UI → Site settings → Environment variables:
+# NEXT_PUBLIC_API_URL = https://YOUR-BACKEND-PUBLIC-URL
+# (no trailing slash — e.g. https://api.transport.ftstravels.com or ngrok URL)
