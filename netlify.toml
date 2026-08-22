@@ -14,7 +14,8 @@
   NPM_FLAGS = "--legacy-peer-deps"
 
 # Set in Netlify UI → Site settings → Environment variables:
-# NEXT_PUBLIC_FTS_STANDALONE = true  (default — no ilicense.tech; set false only for vendor builds)
+# NEXT_PUBLIC_FTS_STANDALONE = true  (default — no ilicense.tech)
+# NEXT_PUBLIC_FTS_LOGO_URL = https://ftstravels.com/cropped-logo-2.png
 # NEXT_PUBLIC_API_URL = https://transport-ftstravels.up.railway.app
 # NEXT_PUBLIC_ENABLE_CAR_DISPATCH = true
 # (no trailing slash — do NOT append /api)

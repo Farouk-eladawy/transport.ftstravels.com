@@ -6,13 +6,13 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
-import Image from "next/image";
 import { Loader2, ShieldAlert, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/stores/auth-store";
 import { useT } from "@/lib/i18n";
+import { FTS_LOGO_FALLBACK, FTS_LOGO_URL } from "@/lib/fts-branding";
 
 const loginSchema = z.object({
   identifier: z.string().min(1, "Email or mobile number is required"),
@@ -108,11 +108,17 @@ function LoginForm() {
         <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-8 shadow-2xl backdrop-blur-xl">
           {/* Logo / Brand */}
           <div className="mb-6 flex flex-col items-center gap-3">
-            <Image
-              src={loginLogoUrl ?? "/favicon.svg"}
+            <img
+              src={loginLogoUrl ?? FTS_LOGO_URL}
               alt="FTS Transport"
               width={56}
               height={56}
+              className="h-14 w-auto max-w-[200px] object-contain"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.src.includes(FTS_LOGO_FALLBACK)) return;
+                img.src = FTS_LOGO_FALLBACK;
+              }}
             />
             <h1 className="text-xl font-semibold text-white">{t("sidebar.brand")}</h1>
             <p className="text-sm text-white/50">{t("login.system")}</p>

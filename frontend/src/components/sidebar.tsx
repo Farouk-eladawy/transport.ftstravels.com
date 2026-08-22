@@ -3,7 +3,6 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import {
   LayoutDashboard,
   CalendarClock,
@@ -49,6 +48,7 @@ import { useT } from "@/lib/i18n";
 import { usePermissionsStore } from "@/stores/permissions-store";
 import { useCompanyStore } from "@/stores/company-store";
 import { useAuthStore } from "@/stores/auth-store";
+import { FTS_BRAND_NAME, FTS_LOGO_FALLBACK, FTS_LOGO_URL } from "@/lib/fts-branding";
 
 export interface NavLink {
   type: "link";
@@ -129,6 +129,8 @@ export function Sidebar() {
   const { has: hasPerm, isLoaded: permsLoaded } = usePermissionsStore();
   const { logoUrl, faviconUrl } = useCompanyStore();
   const { user } = useAuthStore();
+  const sidebarLogo = logoUrl ?? FTS_LOGO_URL;
+  const sidebarIcon = faviconUrl ?? FTS_LOGO_URL;
 
   // Feature flags — must use static keys for Next.js inlining
   const featureFlags: Record<string, boolean> = {
@@ -208,37 +210,34 @@ export function Sidebar() {
         {/* Brand */}
         <div className={cn("flex h-14 items-center", collapsed ? "justify-center px-0" : "px-4")}>
           {collapsed ? (
-            faviconUrl ? (
-              <img
-                src={faviconUrl}
-                alt="iTourTT"
-                width={32}
-                height={32}
-                className="h-8 w-8 shrink-0 rounded object-contain"
-              />
-            ) : (
-              <Image
-                src="/favicon.svg"
-                alt="iTourTT"
-                width={32}
-                height={32}
-                className="shrink-0"
-              />
-            )
+            <img
+              src={sidebarIcon}
+              alt={FTS_BRAND_NAME}
+              width={32}
+              height={32}
+              className="h-8 w-8 shrink-0 rounded object-contain"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.src.includes(FTS_LOGO_FALLBACK)) return;
+                img.src = FTS_LOGO_FALLBACK;
+              }}
+            />
           ) : logoUrl ? (
             <img
-              src={logoUrl}
+              src={sidebarLogo}
               alt={t("sidebar.brand")}
               className="h-11 w-full object-contain"
             />
           ) : (
-            <Image
-              src="/itourtt-logo.svg"
+            <img
+              src={sidebarLogo}
               alt={t("sidebar.brand")}
-              width={200}
-              height={44}
               className="h-11 w-full object-contain"
-              priority
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.src.includes(FTS_LOGO_FALLBACK)) return;
+                img.src = FTS_LOGO_FALLBACK;
+              }}
             />
           )}
         </div>

@@ -70,7 +70,7 @@ export default function CompanyPage() {
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingFavicon, setUploadingFavicon] = useState(false);
 
-  const [companyName, setCompanyName] = useState("iTour TT");
+  const [companyName, setCompanyName] = useState("FTS Transport");
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [faviconUrl, setFaviconUrl] = useState<string | null>(null);
   const [reportHeaderHtml, setReportHeaderHtml] = useState("");
@@ -93,7 +93,7 @@ export default function CompanyPage() {
     Promise.all([companyReq, licenseReq])
       .then(([companyRes, licenseRes]) => {
         const data: CompanySettingsData = companyRes.data;
-        setCompanyName(data.companyName ?? "iTour TT");
+        setCompanyName(data.companyName ?? "FTS Transport");
         setLogoUrl(data.logoUrl ?? null);
         setFaviconUrl(data.faviconUrl ?? null);
         setReportHeaderHtml(data.reportHeaderHtml ?? "");

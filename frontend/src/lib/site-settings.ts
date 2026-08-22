@@ -87,7 +87,7 @@ export interface SiteSettings {
 // ── Defaults (used when API call fails) ──
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  siteName: 'iTour Transfers',
+  siteName: 'FTS Transport',
   siteLogoUrl: null,
   siteFaviconUrl: null,
   fontFamily: 'Inter',
@@ -108,7 +108,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   featuresEnabled: true,
   featuresTitle: 'Why Choose Us?',
   featuresJson: null,
-  contactEmail: 'info@itour-tt.com',
+  contactEmail: 'booking@ftstravels.com',
   contactPhone: '+20 123 456 7890',
   contactWhatsapp: null,
   socialFacebook: null,

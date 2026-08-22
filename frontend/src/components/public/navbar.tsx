@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Menu } from 'lucide-react';
+import { FTS_BRAND_NAME, FTS_LOGO_FALLBACK, FTS_LOGO_URL } from '@/lib/fts-branding';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -24,15 +24,20 @@ export function PublicNavbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: Logo + Brand */}
         <Link href="/" className="flex items-center gap-2.5">
-          <Image
-            src="/favicon.svg"
-            alt="iTour"
+          <img
+            src={FTS_LOGO_URL}
+            alt={FTS_BRAND_NAME}
             width={32}
             height={32}
-            className="shrink-0"
+            className="h-8 w-auto max-w-[120px] shrink-0 object-contain"
+            onError={(e) => {
+              const img = e.currentTarget;
+              if (img.src.includes(FTS_LOGO_FALLBACK)) return;
+              img.src = FTS_LOGO_FALLBACK;
+            }}
           />
           <span className="text-lg font-semibold tracking-tight text-white">
-            iTour Transfers
+            {FTS_BRAND_NAME}
           </span>
         </Link>
 

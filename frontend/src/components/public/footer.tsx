@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Mail, Phone } from 'lucide-react';
+import { FTS_BRAND_NAME, FTS_COMPANY_NAME } from '@/lib/fts-branding';
 
 export function PublicFooter() {
   return (
@@ -10,7 +11,7 @@ export function PublicFooter() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Column 1: Company */}
           <div>
-            <h3 className="text-lg font-semibold text-white">iTour Transfers</h3>
+            <h3 className="text-lg font-semibold text-white">{FTS_BRAND_NAME}</h3>
             <p className="mt-3 text-sm leading-relaxed">
               Professional airport transfer and transportation services across Egypt.
               Safe, reliable, and comfortable rides for tourists and business travelers.
@@ -45,8 +46,8 @@ export function PublicFooter() {
             <ul className="mt-3 space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0 text-blue-400" />
-                <a href="mailto:info@itour-tt.com" className="hover:text-white transition-colors">
-                  info@itour-tt.com
+                <a href="mailto:booking@ftstravels.com" className="hover:text-white transition-colors">
+                  booking@ftstravels.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -61,7 +62,7 @@ export function PublicFooter() {
 
         {/* Copyright */}
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-white/40">
-          &copy; {new Date().getFullYear()} iTour Transport &amp; Traffic. All rights reserved.
+          &copy; {new Date().getFullYear()} {FTS_COMPANY_NAME}. All rights reserved.
         </div>
       </div>
     </footer>

@@ -1780,7 +1780,7 @@ const translations: Record<Locale, Record<string, string>> = {
     "login.error": "\u0641\u0634\u0644 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644",
 
     // ── Sidebar ──
-    "sidebar.brand": "\u0622\u064A \u062A\u0648\u0631",
+    "sidebar.brand": "FTS Transport",
     "sidebar.dashboard": "\u0644\u0648\u062D\u0629 \u0627\u0644\u062A\u062D\u0643\u0645",
     "sidebar.dispatch": "\u0627\u0644\u062A\u0648\u0632\u064A\u0639",
     "sidebar.carDispatch": "\u062A\u0648\u0632\u064A\u0639 \u0627\u0644\u0633\u064A\u0627\u0631\u0627\u062A",

@@ -3,7 +3,6 @@
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -15,6 +14,7 @@ import {
 import { useT } from "@/lib/i18n";
 import { usePermissionsStore } from "@/stores/permissions-store";
 import { useCompanyStore } from "@/stores/company-store";
+import { FTS_BRAND_NAME, FTS_LOGO_FALLBACK, FTS_LOGO_URL } from "@/lib/fts-branding";
 import { useAuthStore } from "@/stores/auth-store";
 import {
   navigation,
@@ -32,6 +32,7 @@ export function MobileSidebar({ open, onOpenChange }: MobileSidebarProps) {
   const t = useT();
   const { has: hasPerm, isLoaded: permsLoaded } = usePermissionsStore();
   const { logoUrl } = useCompanyStore();
+  const sidebarLogo = logoUrl ?? FTS_LOGO_URL;
   const { user } = useAuthStore();
 
   // Close drawer on navigation
@@ -92,22 +93,16 @@ export function MobileSidebar({ open, onOpenChange }: MobileSidebarProps) {
 
         {/* Brand */}
         <div className="flex h-14 items-center px-4">
-          {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt={t("sidebar.brand")}
-              className="h-11 w-full object-contain"
-            />
-          ) : (
-            <Image
-              src="/itourtt-logo.svg"
-              alt={t("sidebar.brand")}
-              width={200}
-              height={44}
-              className="h-11 w-full object-contain"
-              priority
-            />
-          )}
+          <img
+            src={sidebarLogo}
+            alt={logoUrl ? t("sidebar.brand") : FTS_BRAND_NAME}
+            className="h-11 w-full object-contain"
+            onError={(e) => {
+              const img = e.currentTarget;
+              if (img.src.includes(FTS_LOGO_FALLBACK)) return;
+              img.src = FTS_LOGO_FALLBACK;
+            }}
+          />
         </div>
         <Separator className="bg-sidebar-border" />
 
