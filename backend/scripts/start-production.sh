@@ -3,7 +3,7 @@ set -e
 
 if [ "${PRISMA_FRESH_DEPLOY:-false}" = "true" ] || [ "${USE_DB_PUSH:-false}" = "true" ]; then
   echo "[fts-transport] Syncing schema via prisma db push (skips legacy migration SQL)..."
-  npx prisma db push --accept-data-loss --skip-generate
+  npx prisma db push --accept-data-loss
 else
   echo "[fts-transport] Running database migrations..."
   set +e
