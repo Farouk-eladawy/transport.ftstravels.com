@@ -19,7 +19,7 @@ Railway Project: [1608ce57-3bfd-49f0-9bb1-b252439992ec](https://railway.com/proj
 | `JWT_SECRET` | `openssl rand -base64 64` |
 | `JWT_REFRESH_SECRET` | `openssl rand -base64 64` |
 | `PARTNER_API_KEY` | مفتاح عشوائي طويل (نفسه في CRM) |
-| `LICENSE_PUBLIC_KEY` | من لوحة ilicense.tech |
+| `FTS_STANDALONE` | `true` (بدون ilicense.tech — النسخة الداخلية لـ FTS) |
 | `CORS_ORIGINS` | `https://transport.ftstravels.com,https://api.ftstravels.com` |
 | `PUBLIC_BACKEND_URL` | `https://transport-ftstravels.up.railway.app` |
 | `APP_HOST` | `transport.ftstravels.com` |
@@ -42,6 +42,7 @@ Site → **Environment variables**:
 ```
 NEXT_PUBLIC_API_URL=https://transport-ftstravels.up.railway.app
 NEXT_PUBLIC_ENABLE_CAR_DISPATCH=true
+NEXT_PUBLIC_FTS_STANDALONE=true
 ```
 
 **مهم:** بدون `/api` في النهاية.

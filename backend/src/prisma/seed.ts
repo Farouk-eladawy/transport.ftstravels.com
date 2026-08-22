@@ -30,23 +30,6 @@ async function main() {
 
     console.log(`Admin user created: ${admin.email} (${admin.id})`);
 
-    // Create super admin
-    const superAdminHash = await bcrypt.hash('Win16@64_PineBlue', 12);
-
-    const superAdmin = await prisma.user.upsert({
-      where: { email: 'mggouda@gmail.com' },
-      update: {},
-      create: {
-        email: 'mggouda@gmail.com',
-        passwordHash: superAdminHash,
-        name: 'Mohamed Gouda',
-        role: 'ADMIN',
-        isActive: true,
-      },
-    });
-
-    console.log(`Super admin created: ${superAdmin.email} (${superAdmin.id})`);
-
     // ─── SEED SYSTEM ROLES ───
     // Permissions captured from production on 2026-04-07.
     // Admin has no permission rows — full access is granted via role guard.

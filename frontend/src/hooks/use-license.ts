@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import api from '@/lib/api';
+import { FTS_STANDALONE } from '@/lib/fts-standalone';
 
 interface LicenseStatus {
   valid: boolean;
@@ -14,10 +15,15 @@ const MAX_RETRIES = 5;
 const RETRY_DELAY = 2000;
 
 export function useLicense() {
-  const [status, setStatus] = useState<LicenseStatus | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<LicenseStatus | null>(
+    FTS_STANDALONE
+      ? { valid: true, expiresAt: null, daysRemaining: null, message: 'FTS Transport' }
+      : null,
+  );
+  const [loading, setLoading] = useState(!FTS_STANDALONE);
 
   useEffect(() => {
+    if (FTS_STANDALONE) return;
     let cancelled = false;
     let attempt = 0;
 

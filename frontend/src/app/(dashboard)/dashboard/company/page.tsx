@@ -13,6 +13,7 @@ import { useT } from "@/lib/i18n";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import { Badge } from "@/components/ui/badge";
 import { usePermission } from "@/hooks/use-permission";
+import { FTS_STANDALONE } from "@/lib/fts-standalone";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
 
@@ -84,10 +85,12 @@ export default function CompanyPage() {
   const faviconInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    Promise.all([
-      api.get("/settings/company"),
-      api.get("/settings/license-status"),
-    ])
+    const companyReq = api.get("/settings/company");
+    const licenseReq = FTS_STANDALONE
+      ? Promise.resolve({ data: { valid: true, expiresAt: null, daysRemaining: null, message: 'FTS Transport' } })
+      : api.get("/settings/license-status");
+
+    Promise.all([companyReq, licenseReq])
       .then(([companyRes, licenseRes]) => {
         const data: CompanySettingsData = companyRes.data;
         setCompanyName(data.companyName ?? "iTour TT");
@@ -340,7 +343,7 @@ export default function CompanyPage() {
         />
       </Card>
 
-      {/* Software License */}
+      {!FTS_STANDALONE && (
       <Card className="border-border bg-card p-6">
         <h3 className="mb-1 text-base font-medium text-foreground flex items-center gap-2">
           <Key className="h-4 w-4" />
@@ -465,6 +468,7 @@ export default function CompanyPage() {
           </div>
         </div>
       </Card>
+      )}
 
       {/* Save */}
       {canEditSettings && (

@@ -8,6 +8,7 @@ import { UpdateGoogleDriveSettingsDto } from './dto/update-google-drive-settings
 import { ConfigService } from '@nestjs/config';
 import { checkLicense, makeInstallId, verifyOffline } from '../common/license-verify.js';
 import { toLicenseStatus, normalizePublicKey, type LicenseStatus } from '../common/license.util.js';
+import { isFtsStandalone, ftsStandaloneLicenseStatus } from '../common/fts-standalone.js';
 
 /** Default values returned when no row exists yet. */
 const SYSTEM_DEFAULTS = {
@@ -242,6 +243,9 @@ export class SettingsService {
   }
 
   async getLicenseStatus(): Promise<LicenseStatus> {
+    if (isFtsStandalone()) {
+      return ftsStandaloneLicenseStatus();
+    }
     const settings = await this.prisma.companySettings.findFirst();
     if (!settings) {
       return this.noKeyStatus();
@@ -251,6 +255,9 @@ export class SettingsService {
 
   /** Force an immediate online verification against the license server ("Re-check now" button). */
   async recheckLicense(): Promise<LicenseStatus> {
+    if (isFtsStandalone()) {
+      return ftsStandaloneLicenseStatus();
+    }
     const settings = await this.prisma.companySettings.findFirst();
     if (!settings) {
       return this.noKeyStatus();
@@ -259,6 +266,9 @@ export class SettingsService {
   }
 
   async activateLicense(key: string): Promise<LicenseStatus> {
+    if (isFtsStandalone()) {
+      return ftsStandaloneLicenseStatus();
+    }
     const trimmed = (key ?? '').trim();
     // Reject a clearly-invalid paste before it overwrites a possibly-working key.
     const off = verifyOffline(

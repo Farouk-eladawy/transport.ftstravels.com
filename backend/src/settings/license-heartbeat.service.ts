@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { SettingsService } from './settings.service.js';
+import { isFtsStandalone } from '../common/fts-standalone.js';
 
 // Background heartbeat so revocation/renewals land even when nobody polls the UI.
 // checkLicense() throttles the actual network call to ~daily, so a 6-hour cron is cheap.
@@ -12,6 +13,9 @@ export class LicenseHeartbeatService {
 
   @Cron(CronExpression.EVERY_6_HOURS)
   async beat(): Promise<void> {
+    if (isFtsStandalone()) {
+      return;
+    }
     try {
       const s = await this.settings.getLicenseStatus();
       this.log.log(`license: ${s.message}`);

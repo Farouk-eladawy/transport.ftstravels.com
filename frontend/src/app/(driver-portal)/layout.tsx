@@ -132,7 +132,7 @@ function DriverPortalShell({
 
       {/* Footer — fixed above bottom nav */}
       <div className="fixed bottom-16 left-0 right-0 z-40 border-t border-border bg-gray-500/15 px-4 py-1 text-right text-[11px] text-foreground">
-        Developed by: <a href="https://wa.me/+201002805139" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">Mohamed Gouda</a> &middot; v{process.env.NEXT_PUBLIC_APP_VERSION}
+        FTS Transport &middot; FTS Travels &middot; v{process.env.NEXT_PUBLIC_APP_VERSION}
       </div>
 
       {/* Bottom tab bar */}
