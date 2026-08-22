@@ -1,13 +1,13 @@
 -- CreateTable
 CREATE TABLE "rep_job_scores" (
-    "id" TEXT NOT NULL,
-    "traffic_job_id" TEXT NOT NULL,
-    "rep_id" TEXT NOT NULL,
+    "id" UUID NOT NULL,
+    "traffic_job_id" UUID NOT NULL,
+    "rep_id" UUID NOT NULL,
     "attendance" BOOLEAN NOT NULL DEFAULT false,
     "appearance" BOOLEAN NOT NULL DEFAULT false,
     "work" BOOLEAN NOT NULL DEFAULT false,
     "review" BOOLEAN NOT NULL DEFAULT false,
-    "scored_by_id" TEXT NOT NULL,
+    "scored_by_id" UUID NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

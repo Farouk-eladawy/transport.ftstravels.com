@@ -8,9 +8,9 @@ ALTER TABLE "rep_job_scores"
 -- 2) Native guest survey, one per ARR traffic job.
 CREATE TABLE "guest_surveys" (
     "id" TEXT NOT NULL,
-    "traffic_job_id" TEXT NOT NULL,
-    "rep_id" TEXT NOT NULL,
-    "submitted_by_id" TEXT NOT NULL,
+    "traffic_job_id" UUID NOT NULL,
+    "rep_id" UUID NOT NULL,
+    "submitted_by_id" UUID NOT NULL,
     "age_range" TEXT NOT NULL,
     "no_of_adults" INTEGER NOT NULL,
     "flight_no" TEXT NOT NULL,
