@@ -1,8 +1,9 @@
 #!/bin/sh
 set -e
 
-if [ "${PRISMA_FRESH_DEPLOY:-false}" = "true" ] || [ "${USE_DB_PUSH:-false}" = "true" ]; then
-  echo "[fts-transport] Syncing schema via prisma db push (skips legacy migration SQL)..."
+# Railway / fresh deploy: db push syncs schema.prisma directly (legacy migration SQL has UUID/TEXT bugs).
+if [ -n "${RAILWAY_ENVIRONMENT:-}" ] || [ "${USE_DB_PUSH:-false}" = "true" ] || [ "${PRISMA_FRESH_DEPLOY:-false}" = "true" ]; then
+  echo "[fts-transport] Syncing schema via prisma db push..."
   npx prisma db push --accept-data-loss
 else
   echo "[fts-transport] Running database migrations..."
@@ -16,8 +17,12 @@ else
     if echo "$MIGRATE_OUT" | grep -q "P3009"; then
       FAILED=$(echo "$MIGRATE_OUT" | sed -n 's/.*`\([0-9][0-9]*_[^`]*\)`.*/\1/p' | head -1)
       if [ -n "$FAILED" ]; then
-        echo "[fts-transport] Resolving rolled-back migration: $FAILED"
-        npx prisma migrate resolve --rolled-back "$FAILED"
+        echo "[fts-transport] Resolving failed migration: $FAILED"
+        if echo "$MIGRATE_OUT" | grep -qi "already exists"; then
+          npx prisma migrate resolve --applied "$FAILED"
+        else
+          npx prisma migrate resolve --rolled-back "$FAILED"
+        fi
         npx prisma migrate deploy
       else
         exit 1
@@ -35,5 +40,5 @@ if [ "${RUN_DB_SEED:-false}" = "true" ]; then
   fi
 fi
 
-echo "[fts-transport] Starting API on PORT=${PORT:-3001}..."
+echo "[fts-transport] Starting API on PORT=${PORT:-8080}..."
 exec node dist/src/main.js
