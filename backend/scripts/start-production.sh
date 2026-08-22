@@ -34,10 +34,8 @@ else
 fi
 
 if [ "${RUN_DB_SEED:-false}" = "true" ]; then
-  echo "[fts-transport] Seeding database (RUN_DB_SEED=true)..."
-  if ! npx prisma db seed; then
-    echo "[fts-transport] WARN: seed failed — API will still start (create admin manually if needed)"
-  fi
+  echo "[fts-transport] Seeding database in background (RUN_DB_SEED=true)..."
+  (npx prisma db seed || echo "[fts-transport] WARN: seed failed") &
 fi
 
 echo "[fts-transport] Starting API on PORT=${PORT:-8080}..."
